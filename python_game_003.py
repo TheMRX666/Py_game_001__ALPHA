@@ -3,6 +3,7 @@ from random import randint
 
 class Hero():
     def __init__(self, name, class_hero):
+        self.inventory = []
         self.exp = 0
         self.class_hero = class_hero
         self.name = name
@@ -115,6 +116,12 @@ DP - {self.power*self.level}""")
         self.health -= 5
         
  
+    def inventory_add(self, item):
+        self.inventory.append(item)
+        
+    def inventory_see(self):
+        print("You have:",  *self.inventory)
+ 
 
 class Mobs():
     def __init__(self, name, location):
@@ -169,97 +176,104 @@ DP - {self.power*self.level}""")
         return self.power*0.5
 
 
-
-
-
+            
+    
+    
 #MAIN BLOCK
 
 
+
+if __name__ == "__main__":
             
-player_1 = Hero("Denis", "Mage")
-player_1.show_stat()
-player_1.level_up(12)
-player_1.show_stat()
-player_1.punch()
-player_1.show_stat()
+    player_1 = Hero("Denis", "Mage")
+    player_1.show_stat()
+    player_1.level_up(12)
+    player_1.show_stat()
+    player_1.punch()
+    player_1.show_stat()
+    player_1.inventory_add("Arrmor")
+    player_1.inventory_add("Bow")
+    player_1.inventory_add("Sword")
 
 
-#slime_mob = Mobs("Slime", 1)
-#wolf_mob = Mobs("Wolf", 1)
-#goblin_mob = Mobs("Goblin", 1)
-#ork_mob = Mobs("Ork", 1)
+    #slime_mob = Mobs("Slime", 1)
+    #wolf_mob = Mobs("Wolf", 1)
+    #goblin_mob = Mobs("Goblin", 1)
+    #ork_mob = Mobs("Ork", 1)
 
 
-print("""
+    print("""
 
 
-""")
+    """)
 
-while True:
-    readline = input("What the next?    Type help to see commands\n")
-    if readline == "help":
-        print("""
-Dunge  -  Go to the dungeon
-Potion  -  Посмотреть зелья в инвентаре
-Stat  - Посмотреть статистику
-BuyLevel  - Level up for EXP
-Weapon  -  Посмотреть оружие
-End   -  Quit the game
-Support   -  Technical support contacts
-""")
-        
-    elif readline == "Dunge":
-        print("You go to the dungeon")
-        dunge__level__start = 1
-        if dunge__level__start == 1:
-            slime_mob = Mobs("Slime", 1)
-            pvp_index = 0
-            while pvp_index <= 5:
-                player_1.show_stat
-                slime_mob.mob_show_stat()
-                dunge_event = input("Enter Punch\n")
-                if dunge_event == "Punch":
-                    slime_mob.dunge_get_damage(punch_damage)
-                    player_get_to_damage = slime_mob.dunge_mob_punch()
-                    player_1.dunge__get__damage(player_get_to_damage)
-                else:
-                    print("You missed")
-                    player_1.dunge__get__damage(player__get__damage)
-                pvp_index +=1
-                
-                if slime_mob.dunge_get_damage(0) <= 0:
-                    print("You win!!!")
-                    player_1.add_exp(20)
-                    break
-                    
-        
-        
-    elif readline == "Potion":
-        print("""
-Heal  -  Restore health by 50 points
-Energy  -  Restore stamina by 50 points   (NO WORK)""")
-    elif readline == "Heal":
-        player_1.heal_potion()
-    elif readline == "Energy":
-        player_1.energy_potion()
+    while True:
+        readline = input("What the next?    Type 'help' to see commands\n")
+        if readline == "help":
+            print("""
+    Dunge  -  Go to the dungeon
+    Potion  -  View potions in inventory
+    Inventory  - View inventory
+    Stat  -  View statistics
+    BuyLevel  - Level up for EXP
+    Weapon  -  View weapons
+    End   -  Quit the game
+    Support   -  Technical support contacts
+    """)
             
-        
-    elif readline == "Stat":
-        player_1.show_stat()
-    elif readline == "BuyLevel":
-        player_1.buy_level()
-    elif readline == "Weapon":
-        player_1.show_weapon()
-    elif readline == "GD":
-        player_1.get_damage()
-        print("Its Dev test func")
-    elif readline == "End":
-        print("""Thanks for playing
-Pach: Alpha 0.0.2""")
-        break
-    elif readline == "Support":
-        print("Telegram -  @TheMRX666   |    Gmail -  shainyt09@gmail.com")
-    else:
-        print(f"Error!!! Command {readline} does not exist")
+        elif readline == "Dunge":
+            print("You go to the dungeon")
+            dunge__level__start = 1
+            if dunge__level__start == 1:
+                slime_mob = Mobs("Slime", 1)
+                pvp_index = 0
+                while pvp_index <= 5:
+                    player_1.show_stat
+                    slime_mob.mob_show_stat()
+                    dunge_event = input("Enter Punch\n")
+                    if dunge_event == "Punch":
+                        slime_mob.dunge_get_damage(punch_damage)
+                        player_get_to_damage = slime_mob.dunge_mob_punch()
+                        player_1.dunge__get__damage(player_get_to_damage)
+                    else:
+                        print("You missed")
+                        player_1.dunge__get__damage(player__get__damage)
+                    pvp_index +=1
                     
+                    if slime_mob.dunge_get_damage(0) <= 0:
+                        print("You win!!!")
+                        player_1.add_exp(20)
+                        break
+                        
+            
+            
+        elif readline == "Potion":
+            print("""
+    Heal  -  Restore health by 50 points
+    Energy  -  Restore stamina by 50 points   (NO WORK)""")
+        elif readline == "Heal":
+            player_1.heal_potion()
+        elif readline == "Energy":
+            player_1.energy_potion()
+        elif readline == "Inventory":
+            player_1.inventory_see()
+            
+        elif readline == "Stat":
+            player_1.show_stat()
+        elif readline == "BuyLevel":
+            player_1.buy_level()
+        elif readline == "Weapon":
+            player_1.show_weapon()
+        elif readline == "GD":
+            player_1.get_damage()
+            print("Its Dev test func")
+        elif readline == "End":
+            print("""Thanks for playing
+    Pach: Alpha 0.3""")
+            break
+        elif readline == "Support":
+            print("Telegram -  @TheMRX666   |    Gmail -  shainyt09@gmail.com")
+        else:
+            print(f"Error!!! Command {readline} does not exist")
+                        
 
