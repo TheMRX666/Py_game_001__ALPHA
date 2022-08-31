@@ -6,3 +6,5 @@ Added a state of death
 Fixed a bug with a miss in the dungeon
 
 Rebalance system potions
+
+Add money system
