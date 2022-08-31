@@ -34,6 +34,7 @@ class Hero():
             if self.inventory[i] == "Staff":
                 print("You have a Staff")
             
+            
     def show_stat(self):
         print(f"""
 Name - {self.name}      LVL  -  {self.level}
@@ -43,6 +44,7 @@ HP - {self.health*self.level}
 SP - {self.stamina*self.level}
 DP - {self.power*self.level}""")
         
+        
     def add_exp(self, cout_exp):
         self.exp += cout_exp*self.level
         print(f"You get {cout_exp*self.level} EXP!!!")
@@ -51,6 +53,7 @@ DP - {self.power*self.level}""")
     def add_money(self, cout_money):
         self.money += cout_money
         print(f"You get {cout_money}$")
+        
         
     def level_up(self, cout_lvl):
         self.level += cout_lvl
@@ -97,7 +100,7 @@ DP - {self.power*self.level}""")
             self.punch = (self.power*self.level)*0.5
             self.stamina -=2.2
             if self.sword == True:
-                self.punch = self.punch*1.2
+                self.punch = self.punch*1.3
         print(f"You punch damage - {self.punch}")
         global punch_damage
         punch_damage = self.punch
@@ -107,15 +110,15 @@ DP - {self.power*self.level}""")
         if self.health_potion >0:
             if self.class_hero == "Fighter":
                 if self.health*self.level <= 50*self.level - 65:
-                    self.health += 5
-                    print(f"You healed {self.health + 5} health")
+                    self.health += 10
+                    print(f"You healed {10*self.level} health")
                     self.health_potion -=1
                 else:
                     print("You have maximum health")
             elif self.class_hero == "Mage":
-                if self.health*self.level <= 25*self.level - 5:
+                if self.health*self.level <= 25*self.level - 65:
                     self.health += 10
-                    print("You healed 65 health")
+                    print("You healed {10*self.level} health")
                     self.health_potion -=1
                 else:
                     print("You have maximum health")
@@ -128,14 +131,14 @@ DP - {self.power*self.level}""")
             if self.class_hero == "Fighter":
                 if self.stamina*self.level <= 25*self.level - (self.stamina * 5):
                     self.stamina += 10
-                    print(f"You restored {self.stamina + 10} stamina")
+                    print(f"You restored {self.stamina * 10} stamina")
                     self.stamina_potion -=1
                 else:
                     print("You have maximum stamina")
             elif self.class_hero == "Mage":
                 if self.stamina*self.level <= 50*self.level - 65:
-                    self.stamina += 5
-                    print("You restored 65 stamina")
+                    self.stamina += 10
+                    print(f"You restored {self.stamina} * 10 stamina")
                     self.stamina_potion -=1
                 else:
                     print("You have maximum stamina")
