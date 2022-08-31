@@ -4,7 +4,8 @@ from random import randint
 class Hero():
     def __init__(self, name, class_hero):
         self.inventory = []
-        self.exp = 0
+        self.money = 1000
+        self.exp = 100
         self.class_hero = class_hero
         self.name = name
         self.level = 1
@@ -34,19 +35,29 @@ class Hero():
                 print("You have a Staff")
             
     def show_stat(self):
-        print(f"""Name - {self.name}      LVL  -  {self.level}      EXP - {self.exp}
+        print(f"""
+Name - {self.name}      LVL  -  {self.level}
+EXP - {self.exp}       Money -  {self.money}
+
 HP - {self.health*self.level}
 SP - {self.stamina*self.level}
 DP - {self.power*self.level}""")
         
     def add_exp(self, cout_exp):
-        self.exp += cout_exp
-        print(f"You get {cout_exp} EXP!!!")
+        self.exp += cout_exp*self.level
+        print(f"You get {cout_exp*self.level} EXP!!!")
+        
+        
+    def add_money(self, cout_money):
+        self.money += cout_money
+        print(f"You get {cout_money}$")
         
     def level_up(self, cout_lvl):
         self.level += cout_lvl
         print("LEVEL UP!!!  To", cout_lvl, "LVL")
-        
+     
+     #######################################
+                    #SHOP#
         
     def buy_level(self):
         if self.exp >= 100 + 20*self.level:
@@ -55,8 +66,27 @@ DP - {self.power*self.level}""")
             print("You buy LeveL UP")
         else:
             print(f"You don't have a {100 + 20*self.level} EXP")
+            
+            
+    def buy_health_potion(self):
+        if self.money >= 400:
+            self.health_potion += 1
+            self.money -= 400
+            print("You buy Health Potion ")
+        else:
+            print(f"You must have 400$, you have: {self.money}$")
+            
+            
+    def buy_stamina_potion(self):
+        if self.money >= 300:
+            self.stamina_potion += 1
+            self.money -= 300
+            print("You buy Stamina Potion ")
+        else:
+            print(f"You must have 300$, you have: {self.money}")
+            
         
-        
+    #######################################
     def punch(self):
         if self.class_hero == "Fighter":
             self.punch = (self.power*self.level)*0.5
@@ -83,8 +113,8 @@ DP - {self.power*self.level}""")
                 else:
                     print("You have maximum health")
             elif self.class_hero == "Mage":
-                if self.health*self.level <= 25*self.level - 65:
-                    self.health += 5
+                if self.health*self.level <= 25*self.level - 5:
+                    self.health += 10
                     print("You healed 65 health")
                     self.health_potion -=1
                 else:
@@ -96,9 +126,9 @@ DP - {self.power*self.level}""")
     def energy_potion(self):
         if self.stamina_potion >0:
             if self.class_hero == "Fighter":
-                if self.stamina*self.level <= 25*self.level - 65:
-                    self.stamina += 5
-                    print(f"You restored {self.stamina + 5} stamina")
+                if self.stamina*self.level <= 25*self.level - (self.stamina * 5):
+                    self.stamina += 10
+                    print(f"You restored {self.stamina + 10} stamina")
                     self.stamina_potion -=1
                 else:
                     print("You have maximum stamina")
@@ -151,7 +181,9 @@ class Mobs():
             location_id = randint(3,8)
         elif location == 3:
             location_id = randint(7,15)
-        self.level = location_id  
+        self.level = location_id
+        global global_mob_id
+        global_mob_id = location_id
             
             
             
@@ -185,7 +217,7 @@ DP - {self.power*self.level}""")
 
 
     def dunge_get_damage(self, punch_damage):
-        self.health -= punch_damage*0.1
+        self.health -= punch_damage*0.14
         health_point_info = self.health
         return health_point_info
 
@@ -205,10 +237,6 @@ DP - {self.power*self.level}""")
 if __name__ == "__main__":
     game_player_condition = 1       
     player_1 = Hero("Denis", "Mage")
-    player_1.show_stat()
-    player_1.level_up(12)
-    player_1.show_stat()
-    player_1.punch()
     player_1.show_stat()
     player_1.inventory_add("Arrmor")
     player_1.inventory_add("Bow")
@@ -235,6 +263,7 @@ if __name__ == "__main__":
     Inventory  - View inventory
     Stat  -  View statistics
     BuyLevel  - Level up for EXP
+    Shop  -  Shop with money
     Weapon  -  View weapons
     End   -  Quit the game
     Support   -  Technical support contacts
@@ -262,7 +291,8 @@ if __name__ == "__main__":
                     
                     if slime_mob.dunge_get_damage(0) <= 0:
                         print("You win!!!")
-                        player_1.add_exp(20)
+                        player_1.add_exp(7)
+                        player_1.add_money(20*global_mob_id)
                         break
                     player_1.player_dead()
                 player_1.player_dead()
@@ -284,6 +314,15 @@ if __name__ == "__main__":
             player_1.show_stat()
         elif readline == "BuyLevel":
             player_1.buy_level()
+        elif readline == "HealPotion":
+            player_1.buy_health_potion()
+        elif readline == "EnergyPotion":
+            player_1.buy_stamina_potion()
+        elif readline == "Shop":
+            print("""
+HealPotion  -  Buy 1 Heal Potion. Price 400$
+EnergyPotion  -  Buy 1 Heal Potion. Price 400$
+            """)
         elif readline == "Weapon":
             player_1.show_weapon()
         elif readline == "GD":
@@ -300,4 +339,5 @@ if __name__ == "__main__":
             print(f"Error!!! Command {readline} does not exist")
 
                         
+
 
