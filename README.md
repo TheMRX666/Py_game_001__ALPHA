@@ -7,4 +7,6 @@ Fixed a bug with a miss in the dungeon
 
 Rebalance system potions
 
+Rebalance system PVE
+
 Add money system
