@@ -288,6 +288,7 @@ if __name__ == "__main__":
                     if slime_mob.dunge_get_damage(0) <= 0:
                         print("You win!!!")
                         player_1.add_exp(20)
+                        player_1.add_money(100)
                         break
                     player_1.player_dead()
                 player_1.player_dead()
@@ -334,5 +335,6 @@ EnergyPotion  -  Buy 1 Heal Potion. Price 400$
             print(f"Error!!! Command {readline} does not exist")
 
                         
+
 
 
