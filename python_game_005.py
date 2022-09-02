@@ -242,7 +242,7 @@ if __name__ == "__main__":
     game_player_condition = 1       
     player_1 = Hero("Denis", "Mage")
     player_1.show_stat()
-    player_1.level_up(12)
+    player_1.level_up(42)
     player_1.show_stat()
     player_1.punch()
     player_1.show_stat()
@@ -383,5 +383,6 @@ EnergyPotion  -  Buy 1 Heal Potion. Price 400$
             print(f"Error!!! Command {readline} does not exist")
 
                         
+
 
 
